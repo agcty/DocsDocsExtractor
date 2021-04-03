@@ -71,3 +71,7 @@ try {
 } catch (error) {
   console.log("sAnswer not there, skipping");
 }
+
+if (document.getElementById("result")) {
+  window.location.href = chrome.extension.getURL("result.html");
+}
