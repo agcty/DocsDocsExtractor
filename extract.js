@@ -21,10 +21,12 @@ function extract(initialQuestions) {
     });
   }
 
-  questions.push({
-    question: frage,
-    answers: possibleAnswersTransformed,
-  });
+  if (possibleAnswersTransformed.length > 0) {
+    questions.push({
+      question: frage,
+      answers: possibleAnswersTransformed,
+    });
+  }
 
   setData(questions, () => null);
 
@@ -60,7 +62,9 @@ try {
   console.log("sAnswer not there, skipping");
 }
 
-getData((initialQuestions) => extract(initialQuestions));
+getData((initialQuestions) => {
+  extract(initialQuestions);
+});
 
 try {
   document.getElementById("sNextQuestion").click();
