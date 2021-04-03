@@ -1,5 +1,6 @@
-function extract() {
-  let questions = [];
+function extract(initialQuestions) {
+  console.log(initialQuestions);
+  let questions = initialQuestions || [];
 
   // 1. frage herauslesen
   const frage = document.getElementsByClassName("panel-heading")[0].innerText;
@@ -25,15 +26,49 @@ function extract() {
     answers: possibleAnswersTransformed,
   });
 
+  setData(questions, () => null);
+
+  console.log(questions);
+
   return questions;
 }
 
-const questions = extract();
+function getData(callback) {
+  // expects function(value){...}
+  chrome.storage.local.get("questiondata", function (data) {
+    if (data.questiondata === undefined) {
+      callback([]); // default value
+    } else {
+      callback(data.questiondata);
+    }
+  });
+}
+
+function setData(value, callback) {
+  // expects function(){...}
+  chrome.storage.local.set({ questiondata: value }, function () {
+    if (chrome.runtime.lastError) {
+      throw Error(chrome.runtime.lastError);
+    } else {
+      callback();
+    }
+  });
+}
+
+try {
+  document.getElementById("sAnswer").click();
+} catch (error) {
+  console.log("sAnswer not there, skipping");
+}
+
+getData((initialQuestions) => extract(initialQuestions));
+
+try {
+  document.getElementById("sNextQuestion").click();
+} catch (error) {
+  console.log("sAnswer not there, skipping");
+}
+
+// const questions = extract();
 
 // 4. auf antworten klicken
-const answerButton = document.getElementById("sAnswer");
-//   answerButton.click();
-
-const nextQuestionButton = document.getElementById("sQuestionNext");
-
-console.log(questions);
