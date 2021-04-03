@@ -45,7 +45,6 @@ function getData(callback) {
 }
 
 function setData(value, callback) {
-  // expects function(){...}
   chrome.storage.local.set({ questiondata: value }, function () {
     if (chrome.runtime.lastError) {
       throw Error(chrome.runtime.lastError);
@@ -68,7 +67,3 @@ try {
 } catch (error) {
   console.log("sAnswer not there, skipping");
 }
-
-// const questions = extract();
-
-// 4. auf antworten klicken
