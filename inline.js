@@ -22,6 +22,7 @@ getData((questions) => {
 
     var answerOl = document.createElement("ul");
 
+    // answers
     for (answer of item.answers) {
       var listElement = document.createElement("li");
       listElement.innerText = answer.content.trim();
@@ -31,6 +32,17 @@ getData((questions) => {
       }
 
       answerOl.appendChild(listElement);
+    }
+
+    // images
+    for (image of item.images) {
+      const imgTag = document.createElement("img");
+      imgTag.height = 400;
+      imgTag.width = 400;
+      imgTag.src = image;
+      imgTag.style.objectFit = "contain";
+
+      questionDiv.appendChild(imgTag);
     }
 
     questionDiv.appendChild(answerOl);

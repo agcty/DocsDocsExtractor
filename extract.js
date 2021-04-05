@@ -21,10 +21,19 @@ function extract(initialQuestions) {
     });
   }
 
+  const images = document.getElementsByClassName("img-fluid");
+
+  const imageList = [];
+
+  for (image of images) {
+    imageList.push(image.src);
+  }
+
   if (possibleAnswersTransformed.length > 0) {
     questions.push({
       question: frage,
       answers: possibleAnswersTransformed,
+      images: imageList,
     });
   }
 
